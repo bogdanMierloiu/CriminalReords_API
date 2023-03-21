@@ -17,6 +17,11 @@ public class Policeman {
             nullable = false
     )
     private String firstName;
+    @Column(
+            name = "middle_name",
+            nullable = true
+    )
+    private String middleName;
 
     @Column(
             name = "last_name",

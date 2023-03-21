@@ -1,12 +1,13 @@
 package com.bogdanmierloiu.CriminalRecords.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @Entity
@@ -21,6 +22,7 @@ public class PoliceStation {
 
     @Column(
             name = "name",
+            unique = true,
             nullable = false
     )
     private String name;
@@ -33,7 +35,7 @@ public class PoliceStation {
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "policeStation")
     @ToString.Exclude
-    private List<Department> departments = new ArrayList<>();
+    private Set<Department> departments = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
