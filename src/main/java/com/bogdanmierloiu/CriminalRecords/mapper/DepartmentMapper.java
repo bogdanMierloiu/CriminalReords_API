@@ -20,4 +20,5 @@ public interface DepartmentMapper {
 
     List<DepartmentResponse> map(List<Department> list);
 
+
 }

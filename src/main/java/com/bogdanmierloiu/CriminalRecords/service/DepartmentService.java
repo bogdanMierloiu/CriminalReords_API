@@ -2,6 +2,7 @@ package com.bogdanmierloiu.CriminalRecords.service;
 
 import com.bogdanmierloiu.CriminalRecords.dto.department.DepartmentRequest;
 import com.bogdanmierloiu.CriminalRecords.dto.department.DepartmentResponse;
+import com.bogdanmierloiu.CriminalRecords.dto.police_station.PoliceStationResponse;
 import com.bogdanmierloiu.CriminalRecords.entity.Department;
 import com.bogdanmierloiu.CriminalRecords.exception.NotFoundException;
 import com.bogdanmierloiu.CriminalRecords.mapper.DepartmentMapper;
@@ -35,7 +36,8 @@ public class DepartmentService implements Crud<DepartmentRequest, DepartmentResp
 
     @Override
     public List<DepartmentResponse> getAll() {
-        return mapper.map(departmentRepository.findAll());
+        List<DepartmentResponse> responseList = mapper.map(departmentRepository.findAll());
+        return responseList;
     }
 
     @Override
@@ -47,9 +49,14 @@ public class DepartmentService implements Crud<DepartmentRequest, DepartmentResp
 
     @Override
     public void update(DepartmentRequest request) {
-        Department departmentToUpdate = mapper.map(request);
+        Department departmentToUpdate = departmentRepository.findById(request.getId()).orElseThrow(
+                () -> new NotFoundException("The Department with id " + request.getId() + " not found!")
+        );
         departmentToUpdate.setName(request.getName() != null ? request.getName() : departmentToUpdate.getName());
-        //TODO : update the police station
+        departmentToUpdate.setPoliceStation(request.getPoliceStationId() != null ?
+                policeStationRepository.findById(request.getPoliceStationId()).orElseThrow(
+                        () -> new NotFoundException("The police station with id: " + request.getPoliceStationId() + " not found!")) :
+                departmentToUpdate.getPoliceStation());
         departmentRepository.save(departmentToUpdate);
 
     }

@@ -23,7 +23,7 @@ public class Department {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "police_station_id", nullable = false)
     @ToString.Exclude
     private PoliceStation policeStation;

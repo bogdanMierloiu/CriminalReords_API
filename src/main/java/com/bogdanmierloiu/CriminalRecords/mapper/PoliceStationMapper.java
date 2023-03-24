@@ -4,11 +4,8 @@ import com.bogdanmierloiu.CriminalRecords.dto.police_station.PoliceStationReques
 import com.bogdanmierloiu.CriminalRecords.dto.police_station.PoliceStationResponse;
 import com.bogdanmierloiu.CriminalRecords.entity.PoliceStation;
 import org.mapstruct.Mapper;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
-
 
 @Mapper
 public interface PoliceStationMapper {
