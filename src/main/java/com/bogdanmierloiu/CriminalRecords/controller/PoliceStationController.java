@@ -2,7 +2,6 @@ package com.bogdanmierloiu.CriminalRecords.controller;
 
 import com.bogdanmierloiu.CriminalRecords.dto.police_station.PoliceStationRequest;
 import com.bogdanmierloiu.CriminalRecords.dto.police_station.PoliceStationResponse;
-import com.bogdanmierloiu.CriminalRecords.entity.PoliceStation;
 import com.bogdanmierloiu.CriminalRecords.service.PoliceStationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +30,7 @@ public class PoliceStationController {
     }
 
     @GetMapping
+
     public ResponseEntity<List<PoliceStationResponse>> getAll() {
         return new ResponseEntity<>(policeStationService.getAll(), HttpStatus.OK);
     }
