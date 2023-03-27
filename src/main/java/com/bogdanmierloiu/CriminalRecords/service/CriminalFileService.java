@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,9 +98,59 @@ public class CriminalFileService implements Crud<CriminalFileRequest, CriminalFi
 
     @Override
     public void delete(Long id) {
-        CriminalFile criminalFileToDelete = criminalFileRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("The criminal file with id " + id + " not found!")
-        );
-        criminalFileRepository.delete(criminalFileToDelete);
     }
+
+    public List<CriminalFileResponse> findByPoliceStationId(Long id) {
+        return criminalFileMapper.map(criminalFileRepository.findByPoliceStationId(id));
+    }
+
+    public List<CriminalFileResponse> filesWithUnknownAuthorByPoliceStation(Long id) {
+        return criminalFileMapper.map(criminalFileRepository.findFilesWithUnknownAuthor(id));
+    }
+
+    public CriminalFileResponse findByNumber(Long number) {
+        return criminalFileMapper.map(criminalFileRepository.findByNumber(number));
+    }
+
+    public List<CriminalFileResponse> findByLegalQualification(String legalQualification) {
+        return criminalFileMapper.map(criminalFileRepository.findByLegalQualificationContainingIgnoreCase(legalQualification));
+    }
+
+    public List<CriminalFileResponse> findByLegalQualificationOnPoliceStation(Long policeStationId, String legalQualification) {
+        return criminalFileMapper.map(criminalFileRepository.findByPoliceStationIdAndLegalQualificationContainingIgnoreCase(
+                policeStationId, legalQualification));
+    }
+
+    public List<CriminalFileResponse> findByCrimeTypeId(Long id) {
+        return criminalFileMapper.map(criminalFileRepository.findByCrimeTypeId(id));
+    }
+
+    public List<CriminalFileResponse> findByCrimeTypeIdOnPoliceStation(Long policeStationId, Long crimeTypeId) {
+        return criminalFileMapper.map(criminalFileRepository.findByPoliceStationIdAndCrimeTypeId(policeStationId, crimeTypeId));
+    }
+
+    public List<CriminalFileResponse> findByPoliceStationIdAndDepartmentId(Long policeStationId, Long departmentId) {
+        return criminalFileMapper.map(criminalFileRepository.findByPoliceStationIdAndDepartmentId(policeStationId, departmentId));
+    }
+
+    public List<CriminalFileResponse> findByPolicemanId(Long id) {
+        return criminalFileMapper.map(criminalFileRepository.findByPolicemanId(id));
+    }
+
+    public List<CriminalFileResponse> findByDateTimeCrimeBetween(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return criminalFileMapper.map(criminalFileRepository.findByDateTimeCrimeBetween(dateFrom, dateTo));
+    }
+
+    public List<CriminalFileResponse> findByDateCrime(LocalDate date) {
+        return criminalFileMapper.map(criminalFileRepository.findByDateTimeCrimeBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay()));
+    }
+
+    public List<CriminalFileResponse> findByRegistrationDateBetween(LocalDate dateFrom, LocalDate dateTo) {
+        return criminalFileMapper.map(criminalFileRepository.findByRegistrationDateBetween(dateFrom, dateTo));
+    }
+
+    public List<CriminalFileResponse> findByRegistrationDate(LocalDate date) {
+        return criminalFileMapper.map(criminalFileRepository.findByRegistrationDateBetween(date, date.plusDays(1)));
+    }
+
 }

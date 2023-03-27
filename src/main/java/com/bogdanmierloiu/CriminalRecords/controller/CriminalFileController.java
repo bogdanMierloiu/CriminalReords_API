@@ -48,4 +48,43 @@ public class CriminalFileController implements CrudController<CriminalFileReques
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @GetMapping("/byPoliceStation/{id}")
+    public ResponseEntity<List<CriminalFileResponse>> getByPoliceStationId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(criminalFileService.findByPoliceStationId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/unknown-author/{id}")
+    public ResponseEntity<List<CriminalFileResponse>> unknownAuthorByPoliceStation(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(criminalFileService.filesWithUnknownAuthorByPoliceStation(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/byNumber/{number}")
+    public ResponseEntity<CriminalFileResponse> getByNumber(@PathVariable("number") Long number) {
+        return new ResponseEntity<>(criminalFileService.findByNumber(number), HttpStatus.OK);
+    }
+
+    @GetMapping("/byLegalQualification/{legalQualification}")
+    public ResponseEntity<List<CriminalFileResponse>> getByLegalQualification(@PathVariable("legalQualification") String legalQualification) {
+        return new ResponseEntity<>(criminalFileService.findByLegalQualification(legalQualification), HttpStatus.OK);
+    }
+
+    @GetMapping("/byPoliceStation-and-legal-qualification/{policeStationId}/{legalQualification}")
+    public ResponseEntity<List<CriminalFileResponse>> getByLegalQualificationOnPoliceStation(@PathVariable("policeStationId") Long policeStationId,
+                                                                              @PathVariable("legalQualification") String legalQualification) {
+        return new ResponseEntity<>(criminalFileService.findByLegalQualificationOnPoliceStation(policeStationId, legalQualification), HttpStatus.OK);
+    }
+
+    @GetMapping("/byCrimeType/{id}")
+    public ResponseEntity<List<CriminalFileResponse>> getAllByCrimeType(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(criminalFileService.findByCrimeTypeId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/byPoliceStation-and-crime-type/{policeStationId}/{crimeTypeId}")
+    public ResponseEntity<List<CriminalFileResponse>> getByCrimeTypeOnPoliceStation(@PathVariable("policeStationId") Long policeStationId,
+                                                                                    @PathVariable("crimeTypeId") Long crimeTypeId) {
+        return new ResponseEntity<>(criminalFileService.findByCrimeTypeIdOnPoliceStation(policeStationId, crimeTypeId), HttpStatus.OK);
+    }
+
+
 }
