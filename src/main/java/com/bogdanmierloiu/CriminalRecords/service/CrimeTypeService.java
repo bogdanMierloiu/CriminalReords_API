@@ -49,9 +49,5 @@ public class CrimeTypeService implements Crud<CrimeTypeRequest, CrimeTypeRespons
 
     @Override
     public void delete(Long id) {
-        CrimeType crimeTypeToDelete = crimeTypeRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("The crime type with " + id + " not found!")
-        );
-        crimeTypeRepository.delete(crimeTypeToDelete);
     }
 }

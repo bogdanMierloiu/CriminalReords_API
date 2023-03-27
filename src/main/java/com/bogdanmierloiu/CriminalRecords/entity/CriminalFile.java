@@ -11,10 +11,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "criminal_file")
+@Table(name = "criminal_file", uniqueConstraints = {@UniqueConstraint(columnNames = {"number", "police_station_id"})})
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 public class CriminalFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +32,24 @@ public class CriminalFile {
 
     @Column(name = "date_time_crime", nullable = false)
     private LocalDateTime dateTimeCrime;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "police_station_id", nullable = false)
     @ToString.Exclude
-    private Department department;
+    private PoliceStation policeStation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policeman_id", nullable = false)
     @ToString.Exclude
     private Policeman policeman;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    @ToString.Exclude
+    private Department department;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "crime_type_id", unique = true)
+    @JoinColumn(name = "crime_type_id")
+    @ToString.Exclude
     private CrimeType crimeType;
 
     @ManyToMany

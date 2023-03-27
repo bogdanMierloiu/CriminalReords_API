@@ -30,12 +30,11 @@ public class Department {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     @ToString.Exclude
-    @JsonIgnore
     private List<Policeman> policemen = new ArrayList<>();
 
-    @OneToOne(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private CriminalFile criminalFile;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    @ToString.Exclude
+    private List<CriminalFile> criminalFiles;
 
     @Override
     public boolean equals(Object o) {

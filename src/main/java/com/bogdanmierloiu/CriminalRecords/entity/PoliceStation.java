@@ -32,6 +32,10 @@ public class PoliceStation {
     @ToString.Exclude
     private List<Policeman> policemen = new ArrayList<>();
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "policeStation")
+    @ToString.Exclude
+    private Set<CriminalFile> criminalFiles = new HashSet<>();
+
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "policeStation")
     @ToString.Exclude

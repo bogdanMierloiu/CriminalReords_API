@@ -35,13 +35,6 @@ public class Author {
     @ToString.Exclude
     private List<CriminalFile> criminalFiles = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "author_crime_type",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "crime_type_id"))
-    @ToString.Exclude
-    private List<CrimeType> crimeTypes = new ArrayList<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

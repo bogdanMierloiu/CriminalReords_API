@@ -25,9 +25,6 @@ public class CrimeType {
     @OneToOne(mappedBy = "crimeType", cascade = CascadeType.ALL, orphanRemoval = true)
     private CriminalFile criminalFile;
 
-    @ManyToMany(mappedBy = "crimeTypes")
-    @ToString.Exclude
-    private List<Author> authors = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

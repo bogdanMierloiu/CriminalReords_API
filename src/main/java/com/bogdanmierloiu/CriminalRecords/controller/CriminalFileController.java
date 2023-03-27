@@ -46,7 +46,6 @@ public class CriminalFileController implements CrudController<CriminalFileReques
     @Override
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        criminalFileService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 }

@@ -16,21 +16,14 @@ import java.util.List;
 public class CriminalFileRequest {
 
     private Long id;
-
     private Long number;
-
     private LocalDate registrationDate;
-
     private String legalQualification;
-
     private LocalDateTime dateTimeCrime;
-
+    private Long policeStationId;
     private Long departmentId;
-
-    private Long policemanId;
-
     private Long crimeTypeId;
-
+    private Long policemanId;
     private List<Long> authorsId = new ArrayList<>();
 
 
