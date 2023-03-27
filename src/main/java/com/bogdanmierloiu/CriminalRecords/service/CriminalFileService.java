@@ -2,6 +2,8 @@ package com.bogdanmierloiu.CriminalRecords.service;
 
 import com.bogdanmierloiu.CriminalRecords.dto.criminal_file.CriminalFileRequest;
 import com.bogdanmierloiu.CriminalRecords.dto.criminal_file.CriminalFileResponse;
+import com.bogdanmierloiu.CriminalRecords.dto.date.DateRequest;
+import com.bogdanmierloiu.CriminalRecords.dto.date.DateTimeRequest;
 import com.bogdanmierloiu.CriminalRecords.entity.Author;
 import com.bogdanmierloiu.CriminalRecords.entity.CriminalFile;
 import com.bogdanmierloiu.CriminalRecords.exception.NotFoundException;
@@ -137,16 +139,20 @@ public class CriminalFileService implements Crud<CriminalFileRequest, CriminalFi
         return criminalFileMapper.map(criminalFileRepository.findByPolicemanId(id));
     }
 
-    public List<CriminalFileResponse> findByDateTimeCrimeBetween(LocalDateTime dateFrom, LocalDateTime dateTo) {
-        return criminalFileMapper.map(criminalFileRepository.findByDateTimeCrimeBetween(dateFrom, dateTo));
+    public List<CriminalFileResponse> findByDateTimeCrimeBetween(DateTimeRequest dateTimeRequest) {
+        return criminalFileMapper.map(criminalFileRepository.findByDateTimeCrimeBetween(dateTimeRequest.getDateFrom(), dateTimeRequest.getDateTo()));
     }
 
-    public List<CriminalFileResponse> findByDateCrime(LocalDate date) {
-        return criminalFileMapper.map(criminalFileRepository.findByDateTimeCrimeBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay()));
+    public List<CriminalFileResponse> findByPoliceStationAndDateTimeCrimeBetween(Long policeStationId, DateTimeRequest dateTimeRequest) {
+        return criminalFileMapper.map(criminalFileRepository.findByPoliceStationIdAndDateTimeCrimeBetween(policeStationId, dateTimeRequest.getDateFrom(), dateTimeRequest.getDateTo()));
     }
 
-    public List<CriminalFileResponse> findByRegistrationDateBetween(LocalDate dateFrom, LocalDate dateTo) {
-        return criminalFileMapper.map(criminalFileRepository.findByRegistrationDateBetween(dateFrom, dateTo));
+    public List<CriminalFileResponse> findByDateCrime(LocalDate dateRequest) {
+        return criminalFileMapper.map(criminalFileRepository.findByDateTimeCrimeBetween(dateRequest.atStartOfDay(), dateRequest.plusDays(1).atStartOfDay()));
+    }
+
+    public List<CriminalFileResponse> findByRegistrationDateBetween(DateRequest dateTimeRequest) {
+        return criminalFileMapper.map(criminalFileRepository.findByRegistrationDateBetween(dateTimeRequest.getDateFrom(), dateTimeRequest.getDateTo()));
     }
 
     public List<CriminalFileResponse> findByRegistrationDate(LocalDate date) {

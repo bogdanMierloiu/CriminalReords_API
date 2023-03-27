@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "policeman")
+@Table(name = "policeman",uniqueConstraints = {@UniqueConstraint(columnNames = {"first_name", "last_name", "police_station_id"})})
 public class Policeman {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

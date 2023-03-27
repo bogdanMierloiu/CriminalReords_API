@@ -33,6 +33,8 @@ public interface CriminalFileRepository extends JpaRepository<CriminalFile, Long
 
     List<CriminalFile> findByDateTimeCrimeBetween(LocalDateTime dateFrom, LocalDateTime dateTo);
 
+    List<CriminalFile> findByPoliceStationIdAndDateTimeCrimeBetween(Long policeStationId, LocalDateTime dateFrom, LocalDateTime dateTo);
+
     List<CriminalFile> findByRegistrationDateBetween(LocalDate dateFrom, LocalDate dateTo);
 
 }
