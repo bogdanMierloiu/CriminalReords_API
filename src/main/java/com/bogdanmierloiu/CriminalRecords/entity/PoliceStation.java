@@ -36,10 +36,9 @@ public class PoliceStation {
     @ToString.Exclude
     private Set<CriminalFile> criminalFiles = new HashSet<>();
 
-    @OneToMany(cascade = {CascadeType.ALL},
-            mappedBy = "policeStation")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "policeStation")
     @ToString.Exclude
-    private Set<Department> departments = new HashSet<>();
+    private List<Department> departments = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

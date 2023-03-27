@@ -46,5 +46,10 @@ public class DepartmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/byPoliceStation/{id}")
+    public ResponseEntity<List<DepartmentResponse>> findByPoliceStation(@PathVariable("id") Long policeStationId) {
+        return new ResponseEntity<>(departmentService.findByPoliceStation(policeStationId), HttpStatus.OK);
+    }
+
 
 }

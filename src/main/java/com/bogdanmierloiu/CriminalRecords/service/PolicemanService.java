@@ -75,4 +75,8 @@ public class PolicemanService implements Crud<PolicemanRequest, PolicemanRespons
         );
         policemanRepository.delete(policemanToDelete);
     }
+
+    public List<PolicemanResponse> findByPoliceStation(Long id) {
+        return policemanMapper.map(policemanRepository.findByPoliceStationId(id));
+    }
 }

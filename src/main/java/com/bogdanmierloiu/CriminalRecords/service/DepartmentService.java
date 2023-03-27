@@ -21,7 +21,6 @@ public class DepartmentService implements Crud<DepartmentRequest, DepartmentResp
 
     private final DepartmentRepository departmentRepository;
     private final PoliceStationRepository policeStationRepository;
-
     private final DepartmentMapper mapper;
 
 
@@ -63,6 +62,13 @@ public class DepartmentService implements Crud<DepartmentRequest, DepartmentResp
 
     @Override
     public void delete(Long id) {
+        Department departmentToDelete = departmentRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("The department with id: " + " not found")
+        );
+        departmentRepository.delete(departmentToDelete);
+    }
 
+    public List<DepartmentResponse> findByPoliceStation(Long policeStationId) {
+        return mapper.map(departmentRepository.findByPoliceStationId(policeStationId));
     }
 }

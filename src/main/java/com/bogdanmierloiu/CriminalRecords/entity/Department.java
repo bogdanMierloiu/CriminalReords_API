@@ -23,11 +23,6 @@ public class Department {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "police_station_id", nullable = false)
-    @ToString.Exclude
-    private PoliceStation policeStation;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     @ToString.Exclude
     private List<Policeman> policemen = new ArrayList<>();
@@ -35,6 +30,10 @@ public class Department {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     @ToString.Exclude
     private List<CriminalFile> criminalFiles;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private PoliceStation policeStation;
 
     @Override
     public boolean equals(Object o) {

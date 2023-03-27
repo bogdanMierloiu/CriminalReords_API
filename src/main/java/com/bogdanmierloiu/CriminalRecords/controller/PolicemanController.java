@@ -47,5 +47,9 @@ public class PolicemanController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/police-station/{policeStationId}")
+    public ResponseEntity<List<PolicemanResponse>> findByPoliceStation(@PathVariable("policeStationId") Long id) {
+        return new ResponseEntity<>(policemanService.findByPoliceStation(id), HttpStatus.OK);
+    }
 
 }
