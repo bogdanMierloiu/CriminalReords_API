@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,8 +21,8 @@ public class CrimeType {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @OneToOne(mappedBy = "crimeType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private CriminalFile criminalFile;
+    @OneToMany(mappedBy = "crimeType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CriminalFile> criminalFile;
 
 
     @Override

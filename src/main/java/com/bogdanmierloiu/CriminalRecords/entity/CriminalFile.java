@@ -47,7 +47,7 @@ public class CriminalFile {
     @ToString.Exclude
     private Department department;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "crime_type_id")
     @ToString.Exclude
     private CrimeType crimeType;
